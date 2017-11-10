@@ -28,6 +28,12 @@ class ApplicationController < ActionController::Base
         end
       end
     end
+    def is_a_superadmin
+      @sadmin = User.find(session[:user_id]).superadmin
+      unless @sadmin == true
+        redirect_to admin_url, notice: "Not a super admin"
+      end
+    end
 
     def set_i18n_locale_from_params
       if params[:locale]
